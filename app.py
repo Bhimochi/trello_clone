@@ -41,7 +41,7 @@ def seed_db():
             date = date.today()
         ),
         Card(
-        title = "SQLAlchemy"
+        title = "SQLAlchemy",
         description = "Stage 2 - Integrate ORM",
         status = "Ongoing",
         priority = "High",
@@ -62,7 +62,7 @@ def seed_db():
             date = date.today()
         )
     ]
-        
+
     db.session.add_all(cards)
     db.session.commit()
     print('Tables seeded')
