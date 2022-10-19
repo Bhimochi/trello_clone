@@ -110,13 +110,11 @@ def seed_db():
 @app.route('/auth/register/', methods=['POST'])
 def auth_register():
     try:
-        # Load the posted user info and parse the JSON
-        user_info = UserSchema().load(request.json)
         # Create a new User model instance from the user_info
         user = User(
-            email = user_info['email'],
+            email = request.json['email'],
             password = bcrypt.generate_password_hash(user_info['password']).decode('utf8'),
-            name = user_info['name']
+            name = request.json['name']
         )
 
         # Add and commit user to DB
@@ -126,6 +124,12 @@ def auth_register():
         return UserSchema(exclude=['password']).dump(user), 201
     except IntegrityError:
         return {'error': 'Email address already in use'}, 409
+
+@app.route('/auth/login/', methods=['POST'])
+def auth_login():
+    stmt = db.select(User).filter_by(email=request.json['email'], password=bcrypt.generate_password_hash(user_info['password']).decode('utf8'))
+    user = db.session.scalar(stmt)
+    return UserSchema(exclude=['password']).dump(user), 201
 
 
 @app.route('/cards/')
