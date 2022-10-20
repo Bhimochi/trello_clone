@@ -83,7 +83,7 @@ def seed_db():
     cards = [
         Card(
             title = 'Start the project',
-            description = 'Stage 1 - creating the database',
+            description = 'Stage 1 - Creating the database',
             status = 'To Do',
             priority = 'High',
             date = date.today()
