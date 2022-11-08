@@ -123,7 +123,7 @@ def auth_register():
         # Create a new User model instance from the user_info
         user = User(
             email = request.json['email'],
-            password = bcrypt.generate_password_hash(user_info['password']).decode('utf-8'),
+            password = bcrypt.generate_password_hash(request.json['password']).decode('utf-8'),
             name = request.json['name']
         )
         # Add and commit user to DB
